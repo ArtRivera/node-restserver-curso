@@ -7,9 +7,9 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 // BD
 let urlDB;
 
-// if (process.env.NODE_ENV === 'dev') {
-//     urlDB = 'mongodb://localhost:27017/cafe';
-// } else
-urlDB = 'mongodb+srv://admin:mongodbadmin@cluster0.3mrbt.mongodb.net/cafe';
+if (process.env.NODE_ENV === 'dev') {
+    urlDB = 'mongodb://localhost:27017/cafe';
+} else
+    urlDB = process.env.MONGODB_URL;
 
 process.env.URLDB = urlDB;
