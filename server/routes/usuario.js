@@ -4,9 +4,11 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 const Usuario = require('../models/usuario');
+// Config MiddleWares
+const { verificarToken, verificaAdminRole } = require('../middlewares/auth');
 
 
-app.get('/usuario', (req, resp) => {
+app.get('/usuario', verificarToken, (req, resp) => {
 
     const estado = req.query.estado || 'true';
 
@@ -36,7 +38,7 @@ app.get('/usuario', (req, resp) => {
 });
 
 // Insertar usuario
-app.post('/usuario', (req, resp) => {
+app.post('/usuario', [verificarToken, verificaAdminRole], (req, resp) => {
 
     let { body } = req;
 
@@ -70,7 +72,7 @@ app.post('/usuario', (req, resp) => {
 });
 
 // Actualizar usuario
-app.put('/usuario/:id', (req, resp) => {
+app.put('/usuario/:id', [verificarToken, verificaAdminRole], (req, resp) => {
     let id = req.params.id;
     let { body } = req;
 
@@ -95,7 +97,7 @@ app.put('/usuario/:id', (req, resp) => {
 });
 
 //Borrar usuario
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/usuario/:id', [verificarToken, verificaAdminRole], (req, res) => {
     const id = req.params.id;
     const cambiaEstado = {
         estado: false
