@@ -18,6 +18,22 @@ const verificarToken = (req, res, next) => {
     })
 }
 
+const verificarTokenImg = (req, res, next) => {
+    const token = req.query.token;
+    console.log(token);
+    jwt.verify(token, process.env.SEED, (err, decoded) => {
+        if (err)
+            return res.status(401).json({
+                ok: false,
+                err
+            });
+
+        req.usuario = decoded.usuario;
+        next();
+
+    })
+}
+
 const verificaAdminRole = (req, res, next) => {
 
     const { role } = req.usuario;
@@ -34,5 +50,6 @@ const verificaAdminRole = (req, res, next) => {
 
 module.exports = {
     verificarToken,
+    verificarTokenImg,
     verificaAdminRole
 }

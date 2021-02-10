@@ -1,3 +1,7 @@
+const path = require('path');
+
+//Directorio Proyecto
+process.env.ROOT_DIR = path.resolve(__dirname, '../../');
 // Puerto
 process.env.PORT = process.env.PORT || 3000;
 

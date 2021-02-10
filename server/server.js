@@ -16,8 +16,10 @@ app.use(bodyParser.json())
 //Configuracion Global de Rutas
 app.use(require('./routes/index'));
 // Habilitar public
-app.use(express.static(path.resolve(__dirname, '../public')));
+app.use(express.static(`${process.env.ROOT_DIR}/public`))
+    // app.use(express.static(path.resolve(__dirname, '../public')));
 
+// Conectar con mongoDB
 mongoose.connect(process.env.URLDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
